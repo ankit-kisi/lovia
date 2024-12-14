@@ -1,20 +1,18 @@
-const PORT = 8000;
+const express = require("express");
+const cors = require("cors");
+require("dotenv/config");
 
-import express, { json } from "express";
-import cors from "cors";
-
-const app = express();
-
-app.use(cors());
-app.use(json());
-
-import "dotenv/config";
-
-import {
+const {
   GoogleGenerativeAI,
   HarmBlockThreshold,
   HarmCategory,
-} from "@google/generative-ai";
+} = require("@google/generative-ai");
+
+const PORT = process.env.PORT || 8000;
+const app = express();
+
+app.use(cors());
+app.use(express.json());
 
 const KEY = String(process.env.API_KEY);
 
@@ -70,4 +68,4 @@ And please limit the response to 90 characters or less."
   res.send(text);
 });
 
-app.listen(8000, () => console.log("Server is running on port 8000"));
+app.listen(PORT, () => console.log("Server is running on port ${PORT}"));
